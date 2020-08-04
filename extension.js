@@ -34,6 +34,7 @@ function activate(context) {
 		CLASS		&operator=(CLASS const &other);\n\
 \n\
 	private:\n\
+		void		copy(CLASS const &other);\n\
 };\n\
 \n\
 #endif';
@@ -49,11 +50,19 @@ CLASS::~CLASS(void)\n\
 \n\
 CLASS::CLASS(CLASS const &other)\n\
 {\n\
+	CLASS::copy(other);\n\
 }\n\
 \n\
 CLASS		&CLASS::operator=(CLASS const &other)\n\
 {\n\
-}';
+	if (this != &other)\n\
+		CLASS::copy(other);\n\
+	return (*this);\n\
+}\n\
+\n\
+void		CLASS::copy(CLASS const &other)\n\
+{\n\
+}\n';
 		vscode.window.showInputBox(options).then((value) =>
 		{
 			let capitalized = value[0].toUpperCase() + value.substring(1);
