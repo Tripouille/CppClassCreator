@@ -24,11 +24,11 @@ function activate(context) {
 		let hppGuard = '#ifndef CLASS_HPP \n\
 # define CLASS_HPP\n\
 \n';
-		let hppContent = 'class CLASS \n\
+		let hppContent = 'class CLASS\n\
 {\n\
 	public:\n\
 		CLASS(void);\n\
-		~CLASS(void);\n\
+		virtual ~CLASS(void);\n\
 		CLASS(CLASS const &other);\n\
 \n\
 		CLASS		&operator=(CLASS const &other);\n\
@@ -56,7 +56,7 @@ CLASS		&CLASS::operator=(CLASS const &other)\n\
 }';
 		vscode.window.showInputBox(options).then((value) =>
 		{
-			let capitalized = value[0].toUpperCase() + value.slice(1).toLowerCase();
+			let capitalized = value[0].toUpperCase() + value.substring(1);
 			fs.writeFile(path.join(folderPath, capitalized + ".hpp"), hppGuard.replace(/CLASS/g, value.toUpperCase()) + hppContent.replace(/CLASS/g, capitalized), err => {
 				if (err)
 				{
