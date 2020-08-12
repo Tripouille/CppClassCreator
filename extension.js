@@ -21,7 +21,7 @@ function activate(context) {
 		const folderPath = vscode.workspace.workspaceFolders[0].uri
 			.toString()
 			.split(":")[1];
-		let hppGuard = '#ifndef CLASS_HPP \n\
+		let hppGuard = '#ifndef CLASS_HPP\n\
 # define CLASS_HPP\n\
 \n';
 		let hppContent = 'class CLASS\n\
@@ -34,7 +34,8 @@ function activate(context) {
 		CLASS &					operator=(CLASS const & other);\n\
 \n\
 	private:\n\
-		void					copy(CLASS const & other);\n\
+		void					_copy(CLASS const & other);\n\
+\n\
 };\n\
 \n\
 #endif';
@@ -50,19 +51,19 @@ CLASS::~CLASS(void)\n\
 \n\
 CLASS::CLASS(CLASS const & other)\n\
 {\n\
-	CLASS::copy(other);\n\
+	CLASS::_copy(other);\n\
 }\n\
 \n\
 CLASS &\n\
 CLASS::operator=(CLASS const & other)\n\
 {\n\
 	if (this != &other)\n\
-		CLASS::copy(other);\n\
+		CLASS::_copy(other);\n\
 	return (*this);\n\
 }\n\
 \n\
 void\n\
-CLASS::copy(CLASS const & other)\n\
+CLASS::_copy(CLASS const & other)\n\
 {\n\
 }\n';
 		vscode.window.showInputBox(options).then((value) =>
