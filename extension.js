@@ -31,7 +31,7 @@ function activate(context) {
 		virtual ~CLASS(void);\n\
 		CLASS(CLASS const & other);\n\
 \n\
-		CLASS &					operator=(CLASS const & other);\n\
+		CLASS &						operator=(CLASS const & other);\n\
 \n\
 	private:\n\
 		void					_copy(CLASS const & other);\n\
@@ -65,6 +65,7 @@ CLASS::operator=(CLASS const & other)\n\
 void\n\
 CLASS::_copy(CLASS const & other)\n\
 {\n\
+	static_cast<void>(other);\n\
 }\n';
 		vscode.window.showInputBox(options).then((value) =>
 		{
